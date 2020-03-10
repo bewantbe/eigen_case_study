@@ -31,7 +31,17 @@
 \float_placement H
 \paperfontsize 11
 \spacing single
-\use_hyperref false
+\use_hyperref true
+\pdf_author "xyy"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
 \papersize default
 \use_geometry true
 \use_package amsmath 1
@@ -116,7 +126,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -151,7 +161,7 @@ Matrix,
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -186,7 +196,7 @@ Eigenvalues
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -248,6 +258,13 @@ Eigen-values are devided into two distinct groups.
 \begin_deeper
 \begin_layout Enumerate
 One group close to zero, the other does not.
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:ob-val-two-group"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -258,6 +275,13 @@ The eigen-vectors are devided into two distinct groups.
 \begin_deeper
 \begin_layout Enumerate
 One correspond to small eigenvalues, the other correspond to O(1) eigenvalues.
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:ob-vec-vs-val"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -274,6 +298,13 @@ name "enu:ob-small-vec"
 
 \begin_layout Enumerate
 The large eigenvectors is spread in even rows.
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:ob-large-vec"
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
@@ -342,6 +373,13 @@ status open
 
 \begin_layout Plain Layout
 odd-even reordered matrix
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Aei"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -360,12 +398,20 @@ Now we observed the following structure:
 
 \begin_layout Enumerate
 The diagonal of original matrix is consist of nonzero 2-by-2 matrices (the
- permuted matrix is a 2x2 block diagonal-like matrix).
+ permuted matrix is a 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ block diagonal-like matrix).
 \end_layout
 
 \begin_deeper
 \begin_layout Enumerate
-The 2x2 matrices has certian trend.
+The 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ matrices has certian trend.
  See Fig.
  
 \begin_inset CommandInset ref
@@ -637,7 +683,11 @@ name "fig:a22"
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Trend of 2x2 matrix
+Trend of 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ matrix
 \begin_inset CommandInset label
 LatexCommand label
 name "fig:trend-of-matrix"
@@ -833,13 +883,26 @@ noprefix "false"
 \end_layout
 
 \begin_layout Subsection
-2x2 skeleton
+\begin_inset Formula $2\times2$
+\end_inset
+
+ skeleton
 \end_layout
 
 \begin_layout Standard
-We want to keep the 2x2 blocks along diagonal, also 2x2 matrix is within
- reach of simple math, thus we choose the 2x2 block diagonal skeleton as
- the most naive case.
+We want to keep the 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ blocks along diagonal, also 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ matrix is within reach of simple math, thus we choose the 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ block diagonal skeleton as the most naive case.
  See results in Fig.
  
 \begin_inset CommandInset ref
@@ -1367,6 +1430,13 @@ noprefix "false"
 
 \begin_layout Subsection
 Idealized case
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Idealized-case"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1386,12 +1456,24 @@ noprefix "false"
 
 \end_inset
 
+ 
+\begin_inset Quotes eld
+\end_inset
+
+hand fit
+\begin_inset Quotes erd
+\end_inset
+
 ).
  And randomly generate off-diagonal elements.
 \end_layout
 
 \begin_layout Standard
-The generation of diagonal 2x2 blocks:
+The generation of diagonal 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ blocks:
 \begin_inset Formula 
 \[
 \begin{bmatrix}0.074963 & -0.065010\\
@@ -1472,7 +1554,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1507,7 +1589,7 @@ Matrix,
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1542,7 +1624,7 @@ Eigenvalues
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -1605,21 +1687,162 @@ name "fig:A-gen"
 \end_layout
 
 \begin_layout Section
+The mathematical analysis and intuition
+\end_layout
+
+\begin_layout Standard
+For observation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:ob-large-vec"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ it might relate to the odd-even scale separation structure to 
+\begin_inset Formula $A$
+\end_inset
+
+ (Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Aei"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+), seeing from 
+\begin_inset Formula $Av=\lambda v$
+\end_inset
+
+ with imaginary random 
+\begin_inset Formula $v$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For observation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:ob-val-two-group"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, it might relate to the scale separation of 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ blocks, see Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:appdix-2x2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for discussion of a 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ matrix.
+ By substitute the numbers in Sec.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Idealized-case"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we see that the magtitute of eigven-values are match (Fig.
+ ).
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-val-app_c2.png
+	lyxscale 50
+	scale 30
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename pic/eig-val-app-log_c2.png
+	lyxscale 50
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+compare of eigenvalue approximation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To be continued...
+\end_layout
+
+\begin_layout Section
 Appendix
 \end_layout
 
 \begin_layout Subsection
-Eigen-decomposition of 2x2 matrix
+Eigen-decomposition of 
+\begin_inset Formula $2\times2$
+\end_inset
+
+ matrix
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:appdix-2x2"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
 For
 \begin_inset Formula 
-\[
+\begin{equation}
 A=\begin{bmatrix}a_{11} & a_{12}\\
 a_{21} & a_{22}
 \end{bmatrix}
-\]
+\end{equation}
 
 \end_inset
 
@@ -1637,9 +1860,9 @@ Let
 
 , then
 \begin_inset Formula 
-\[
+\begin{equation}
 \lambda_{1},\lambda_{2}=t/2\pm\sqrt{\left(t/2\right)^{2}-d}
-\]
+\end{equation}
 
 \end_inset
 
@@ -1647,27 +1870,35 @@ Let
 \end_layout
 
 \begin_layout Standard
-vec
+eigen-vectors 
+\begin_inset Formula $P=\begin{bmatrix}v_{1} & v_{2}\end{bmatrix}$
+\end_inset
+
+:
 \begin_inset Formula 
-\[
+\begin{equation}
 v_{1}=\begin{bmatrix}\frac{a_{11}-a_{22}}{2}+\sqrt{\left(t/2\right)^{2}-d}\\
 a_{21}
 \end{bmatrix}=\begin{bmatrix}\lambda_{1}-a_{22}\\
 a_{21}
+\end{bmatrix}\ \mathrm{or}=\begin{bmatrix}a_{12}\\
+\lambda_{1}-a_{11}
 \end{bmatrix}
-\]
+\end{equation}
 
 \end_inset
 
 
 \begin_inset Formula 
-\[
+\begin{equation}
 v_{2}=\begin{bmatrix}\frac{a_{11}-a_{22}}{2}-\sqrt{\left(t/2\right)^{2}-d}\\
 a_{21}
 \end{bmatrix}=\begin{bmatrix}\lambda_{2}-a_{22}\\
 a_{21}
+\end{bmatrix}\ \mathrm{or}=\begin{bmatrix}a_{12}\\
+\lambda_{2}-a_{11}
 \end{bmatrix}
-\]
+\end{equation}
 
 \end_inset
 
@@ -1675,7 +1906,31 @@ a_{21}
 \end_layout
 
 \begin_layout Standard
-(verification)
+Note that the above expressions might be singular (i.e.
+ zero vector) if 
+\begin_inset Formula $a_{21}=0$
+\end_inset
+
+ or 
+\begin_inset Formula $a_{12}=0$
+\end_inset
+
+, pick the non-singular one that fit your needs.
+ Unless 
+\begin_inset Formula $a_{21}=a_{12}=0$
+\end_inset
+
+, 
+\begin_inset Formula $a_{11}=a_{22}$
+\end_inset
+
+, in which we knew the trivial answer.
+ Also they need normalization 2-Norm=1 to match LAPACK (matlab/numpy etc.)
+ output.
+\end_layout
+
+\begin_layout Standard
+(verification only)
 \begin_inset Formula 
 \[
 Av_{1}=\lambda_{1}v_{1}
@@ -1711,6 +1966,38 @@ a_{21}\lambda_{1}
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{bmatrix}a_{11}-\lambda & a_{12}\\
+a_{21} & a_{22}-\lambda
+\end{bmatrix}v=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+(a_{11}-\lambda)u_{1}+a_{12}u_{2}=0
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+a_{12},\lambda-a_{11}
+\]
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph
 Scale seperation case:
 \end_layout
@@ -1726,35 +2013,27 @@ Assume
 
 :
 \begin_inset Formula 
-\[
+\begin{equation}
 \lambda_{1},\lambda_{2}=\frac{t}{2}\left(1\pm\sqrt{1-\frac{d}{\left(t/2\right)^{2}}}\right)\approx\begin{cases}
 {\displaystyle t-\frac{d}{t}}+O(d^{2}) & (+)\\
 \frac{d}{t}+O(d^{2}) & (-)
 \end{cases}\approx\begin{cases}
 {\displaystyle a_{22}+\frac{a_{21}}{a_{22}}a_{12}} & (+)\\
 a_{11}-\frac{a_{21}}{a_{22}}a_{12} & (-)
-\end{cases}
-\]
+\end{cases}\label{eq:eig-val-approx}
+\end{equation}
 
 \end_inset
 
 
 \begin_inset Formula 
-\[
+\begin{equation}
 v_{1}\approx\begin{bmatrix}\frac{a_{21}}{a_{22}}a_{12}\\
 a_{21}
-\end{bmatrix}
-\]
-
-\end_inset
-
-
-\begin_inset Formula 
-\[
-v_{2}\approx\begin{bmatrix}a_{11}-\frac{a_{21}}{a_{22}}a_{12}-a_{22}\\
+\end{bmatrix},\quad v_{2}\approx\begin{bmatrix}a_{11}-\frac{a_{21}}{a_{22}}a_{12}-a_{22}\\
 a_{21}
-\end{bmatrix}
-\]
+\end{bmatrix}\label{eq:eig-vec-approx}
+\end{equation}
 
 \end_inset
 

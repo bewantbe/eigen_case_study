@@ -114,7 +114,7 @@ case 4
   
   A([1:2:n 2:2:n], [1:2:n 2:2:n]) = A3;
 
-case 2
+case {2, 22}
 
   fc = load('connectivity.mat');
   A0 = fc.W_p;
@@ -140,8 +140,12 @@ case 2
 
   % fill 2x2 blocks
   A = zeros(n, n);
+  eigvalapp = zeros(2, n/2);
   for k=1:n/2
-    A(2*(k-1)+1:2*k, 2*(k-1)+1:2*k) = A_local .* [(0.83+0.6*k/n) 1; (0.89+0.4*k/n) 1];
+    twob = A_local .* [(0.83+0.6*k/n) 1; (0.89+0.4*k/n) 1];
+    A(2*(k-1)+1:2*k, 2*(k-1)+1:2*k) = twob;
+    eigvalapp(1, k) = twob(2,2) + twob(2,1)*twob(1,2)/twob(2,2);
+    eigvalapp(2, k) = twob(1,1) - twob(2,1)*twob(1,2)/twob(2,2);
   end
 
 %  % add random interconnection
@@ -232,6 +236,20 @@ plot(real(eigval));
 xlabel('idx');
 ylabel('eig-val');
 pic_output_png('eig-val');
+
+figure(300);
+plot(1:n, real(eigval), 1:n, sort(eigvalapp(:), 'descend'));
+xlabel('idx');
+ylabel('eig-val');
+legend('eig', 'approx');
+pic_output_png('eig-val-app');
+
+figure(301);
+semilogy(1:n, -real(eigval), 1:n, -sort(eigvalapp(:), 'descend'));
+xlabel('idx');
+ylabel('abs-eig-val');
+legend('eig', 'approx');
+pic_output_png('eig-val-app-log');
 
 figure(4);
 imagesc(abs(eigvec));
