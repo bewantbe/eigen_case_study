@@ -1,0 +1,1785 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize 11
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Eigen decomposition: a case study
+\end_layout
+
+\begin_layout Section
+The matrix and phenomena in eigen decompostion
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:matrix"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The matrix 
+\begin_inset Formula $A=P\Lambda P^{-1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/A_c0.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix, 
+\begin_inset Formula $A$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-val_c0.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Eigenvalues 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-vec_c0.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix of eigenvectors 
+\begin_inset Formula $P$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Sample
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Few oberservations here need to be explained:
+\end_layout
+
+\begin_layout Enumerate
+Eigen-values are devided into two distinct groups.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+One group close to zero, the other does not.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+The eigen-vectors are devided into two distinct groups.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+One correspond to small eigenvalues, the other correspond to O(1) eigenvalues.
+\end_layout
+
+\begin_layout Enumerate
+The small eigenvalue eigenvector group (small eigenvectors for short) is
+ localized.
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:ob-small-vec"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The large eigenvectors is spread in even rows.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+The phenomena in eigenvalues and eigenvectors might be related to the structure
+ of the matrix, for example:
+\end_layout
+
+\begin_layout Itemize
+Difference between odd and even rows.
+\end_layout
+
+\begin_layout Itemize
+The diagonal.
+\end_layout
+
+\begin_layout Itemize
+The distribution of off-diagonal elements.
+\end_layout
+
+\begin_layout Section
+Structure of the matrix (by eye)
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:structure"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let's look at the permuted matrix, denoted by 
+\begin_inset Formula $A^{(\mathrm{ei})}=\left(A\right)^{(\mathrm{ei})}$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+A^{(\mathrm{ei})}=\begin{bmatrix}A_{11} & A_{12}\\
+A_{21} & A_{22}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/Aei_c0.png
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+odd-even reordered matrix
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now we observed the following structure:
+\end_layout
+
+\begin_layout Enumerate
+The diagonal of original matrix is consist of nonzero 2-by-2 matrices (the
+ permuted matrix is a 2x2 block diagonal-like matrix).
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+The 2x2 matrices has certian trend.
+ See Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:trend-of-matrix"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathrm{diag}\left|A_{11}\right|$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathrm{diag}\left|A_{12}\right|$
+\end_inset
+
+ 
+\begin_inset Formula $\ll$
+\end_inset
+
+ 
+\begin_inset Formula $\mathrm{diag}\left|A_{21}\right|$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathrm{diag}\left|A_{22}\right|$
+\end_inset
+
+.
+ Roughly speaking, 
+\begin_inset Formula $\mathrm{diag}\left|A_{21}\right|\approx8.9\,\mathrm{diag}\left|A_{11}\right|$
+\end_inset
+
+, 
+\begin_inset Formula $\mathrm{diag}\left|A_{22}\right|=(8+1867/6501)\,\mathrm{diag}\left|A_{12}\right|$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Non-diagnal parts
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+The off-diagonal elements in 
+\begin_inset Formula $A_{11}$
+\end_inset
+
+ and 
+\begin_inset Formula $A_{21}$
+\end_inset
+
+ are strickly differ by a multiplying-factor 
+\begin_inset Formula $(8-5/337)\approx7.985$
+\end_inset
+
+.
+ See Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:diag-A11-A21-loglog"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+The off-diagonal elements of 
+\begin_inset Formula $A_{12}$
+\end_inset
+
+ and 
+\begin_inset Formula $A_{22}$
+\end_inset
+
+ are strictly zero.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pic/a11diag_c2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{diag(}A_{11})$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:a11"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pic/a12diag_c2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{diag(}A_{12})$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:a21"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pic/a21diag_c2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{diag(}A_{21})$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:a12"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pic/a22diag_c2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{diag(}A_{22})$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:a22"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Trend of 2x2 matrix
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:trend-of-matrix"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/A11diag_vs_A21diag_loglog_orig.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathrm{diag}(A_{11})$
+\end_inset
+
+ v.s.
+ 
+\begin_inset Formula $\mathrm{diag}(A_{21})$
+\end_inset
+
+ in log-log-plot, zeros are omitted.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:diag-A11-A21-loglog"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename pic/Aei_log10_c2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+log scale of the matrix 
+\begin_inset Formula $A^{(\mathrm{ei})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A close look of off-diagonal elements.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Mimic the relevant structure of the matrix
+\end_layout
+
+\begin_layout Standard
+First, let's make clear a (more or less) philosophical rule:
+\end_layout
+
+\begin_layout Standard
+When one say there is a structure (or phenomena, observation, etc.) in a
+ few or even 
+\emph on
+one
+\emph default
+ sample, the structure can be (usually should be) understood under a framework
+ of statistics (e.g.
+ denote by distributions and mappings).
+ In other words, there is a whole category of samples (possibly unobserved
+ yet) beside the observed one, are presumed to have the observed structure.
+ However, at such stage, the exact description of the statistics or the
+ category is not yet completely identified, even when it is completely identifie
+d, it might not unique.
+ This variety gives us the 
+\emph on
+chance
+\emph default
+ to have a simple and universal mechanism/explanation, because we can alter
+ the conceptual statistics meanwhile keep the observed must-have structures,
+ and pick a 
+\emph on
+simple
+\emph default
+ one in this generated family of category candidates.
+ In short, reasoning by generalization.
+\end_layout
+
+\begin_layout Standard
+In the problem here, we have only one sample: 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ The proposed structures in Sec.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:matrix"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:structure"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ are all essentially statistical.
+ Now it is the time to shape this statistics, by the means of random shuffling
+ and hand craft samples, from the most naive to more and more sophisticated.
+\end_layout
+
+\begin_layout Subsection
+2x2 skeleton
+\end_layout
+
+\begin_layout Standard
+We want to keep the 2x2 blocks along diagonal, also 2x2 matrix is within
+ reach of simple math, thus we choose the 2x2 block diagonal skeleton as
+ the most naive case.
+ See results in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:skeleton-A"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/A_c-2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix, 
+\begin_inset Formula $A^{(\mathrm{d})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-val_c-2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Eigenvalues 
+\begin_inset Formula $\Lambda^{(\mathrm{d})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-vec_c-2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix of eigenvectors 
+\begin_inset Formula $P^{(\mathrm{d})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+skeleton matrix 
+\begin_inset Formula $A^{(\mathrm{d})}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:skeleton-A"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Shuffle inter-connection
+\end_layout
+
+\begin_layout Standard
+Next, shuffle the other off-diagonal elements to see if the order are relevant.
+ Here we only shuffle 
+\begin_inset Formula $A_{21}$
+\end_inset
+
+ part.
+ See results in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-shuffle"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Clearly, the observation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:ob-small-vec"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is gone.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/A_c4.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix, 
+\begin_inset Formula $A^{(\mathrm{shu21})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-val_c4.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Eigenvalues 
+\begin_inset Formula $\Lambda^{(\mathrm{shu}21)}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-vec_c4.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix of eigenvectors 
+\begin_inset Formula $P^{(\mathrm{shu}21)}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+skeleton matrix 
+\begin_inset Formula $A^{(\mathrm{shu21})}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-shuffle"
+
+\end_inset
+
+, seed=32466345
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+But if we shuffle off-diagonals of 
+\begin_inset Formula $A_{11}$
+\end_inset
+
+ and 
+\begin_inset Formula $A_{21}$
+\end_inset
+
+ the same way, we get what we want.
+ See Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-shuffle-11-21"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/A_c3.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix, 
+\begin_inset Formula $A^{(\mathrm{shu})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-val_c3.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Eigenvalues 
+\begin_inset Formula $\Lambda^{(\mathrm{shu})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-vec_c3.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix of eigenvectors 
+\begin_inset Formula $P^{(\mathrm{shu})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+skeleton matrix 
+\begin_inset Formula $A^{(\mathrm{shu21})}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-shuffle-11-21"
+
+\end_inset
+
+, seed=32466345
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So here we learn that the matching between 
+\begin_inset Formula $A_{11}$
+\end_inset
+
+ and 
+\begin_inset Formula $A_{21}$
+\end_inset
+
+ is important for the observation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:ob-small-vec"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Idealized case
+\end_layout
+
+\begin_layout Standard
+Let's make the diagonal of 
+\begin_inset Formula $A$
+\end_inset
+
+ more regular, e.g.
+ change linearly (See Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:trend-of-matrix"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ And randomly generate off-diagonal elements.
+\end_layout
+
+\begin_layout Standard
+The generation of diagonal 2x2 blocks:
+\begin_inset Formula 
+\[
+\begin{bmatrix}0.074963 & -0.065010\\
+0.664577 & -0.538750
+\end{bmatrix}\circ\begin{bmatrix}0.83+0.6\frac{k}{n} & 1\\
+0.89+0.4\frac{k}{n} & 1
+\end{bmatrix},\quad(k=1,\ldots,n)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The generation of off-diagonals (
+\begin_inset Formula $r_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $r_{2}$
+\end_inset
+
+ is two random numbers in range 
+\begin_inset Formula $[0,1]$
+\end_inset
+
+):
+\begin_inset Formula 
+\[
+r_{1}*10^{-2.3+2r_{2}}
+\]
+
+\end_inset
+
+These random numbers are placed in 
+\begin_inset Formula $A_{21}$
+\end_inset
+
+, and in 
+\begin_inset Formula $A_{11}$
+\end_inset
+
+ as the same position in 
+\begin_inset Formula $A_{21}$
+\end_inset
+
+ but with a factor 
+\begin_inset Formula $1/8$
+\end_inset
+
+ premultiplied.
+\end_layout
+
+\begin_layout Standard
+This gives us Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-gen"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, who matches most (if not all) desired phenomena.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/A_c2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix, 
+\begin_inset Formula $A^{(\mathrm{gen})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-val_c2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Eigenvalues 
+\begin_inset Formula $\Lambda^{(\mathrm{gen})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-vec_c2.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix of eigenvectors 
+\begin_inset Formula $P^{(\mathrm{gen})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+generated matrix 
+\begin_inset Formula $A^{(\mathrm{gen})}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-gen"
+
+\end_inset
+
+, seed=32466345
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Appendix
+\end_layout
+
+\begin_layout Subsection
+Eigen-decomposition of 2x2 matrix
+\end_layout
+
+\begin_layout Standard
+For
+\begin_inset Formula 
+\[
+A=\begin{bmatrix}a_{11} & a_{12}\\
+a_{21} & a_{22}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $t=a_{11}+a_{22}$
+\end_inset
+
+, 
+\begin_inset Formula $d=a_{11}a_{22}-a_{12}a_{21}$
+\end_inset
+
+, then
+\begin_inset Formula 
+\[
+\lambda_{1},\lambda_{2}=t/2\pm\sqrt{\left(t/2\right)^{2}-d}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+vec
+\begin_inset Formula 
+\[
+v_{1}=\begin{bmatrix}\frac{a_{11}-a_{22}}{2}+\sqrt{\left(t/2\right)^{2}-d}\\
+a_{21}
+\end{bmatrix}=\begin{bmatrix}\lambda_{1}-a_{22}\\
+a_{21}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+v_{2}=\begin{bmatrix}\frac{a_{11}-a_{22}}{2}-\sqrt{\left(t/2\right)^{2}-d}\\
+a_{21}
+\end{bmatrix}=\begin{bmatrix}\lambda_{2}-a_{22}\\
+a_{21}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(verification)
+\begin_inset Formula 
+\[
+Av_{1}=\lambda_{1}v_{1}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+(\lambda_{1}-a_{22})\lambda_{1}=(a_{11}-\lambda_{2})\lambda_{1}=a_{11}\lambda_{1}-d
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\begin{bmatrix}a_{11}(\lambda_{1}-a_{22})+a_{12}a_{21}\\
+a_{21}(\lambda_{1}-a_{22})+a_{22}a_{21}
+\end{bmatrix}=\begin{bmatrix}a_{11}\lambda_{1}-d\\
+a_{21}\lambda_{1}
+\end{bmatrix}=\begin{bmatrix}(\lambda_{1}-a_{22})\lambda_{1}\\
+a_{21}\lambda_{1}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Scale seperation case:
+\end_layout
+
+\begin_layout Standard
+Assume 
+\begin_inset Formula $a_{11},a_{12}\ll a_{21},a_{22}$
+\end_inset
+
+, or 
+\begin_inset Formula $d/t^{2}\ll1/4$
+\end_inset
+
+:
+\begin_inset Formula 
+\[
+\lambda_{1},\lambda_{2}=\frac{t}{2}\left(1\pm\sqrt{1-\frac{d}{\left(t/2\right)^{2}}}\right)\approx\begin{cases}
+{\displaystyle t-\frac{d}{t}}+O(d^{2}) & (+)\\
+\frac{d}{t}+O(d^{2}) & (-)
+\end{cases}\approx\begin{cases}
+{\displaystyle a_{22}+\frac{a_{21}}{a_{22}}a_{12}} & (+)\\
+a_{11}-\frac{a_{21}}{a_{22}}a_{12} & (-)
+\end{cases}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+v_{1}\approx\begin{bmatrix}\frac{a_{21}}{a_{22}}a_{12}\\
+a_{21}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+v_{2}\approx\begin{bmatrix}a_{11}-\frac{a_{21}}{a_{22}}a_{12}-a_{22}\\
+a_{21}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So 
+\begin_inset Formula $v_{1}$
+\end_inset
+
+ is almost 
+\begin_inset Formula $[0,1]^{T}$
+\end_inset
+
+, 
+\begin_inset Formula $v_{2}$
+\end_inset
+
+ is almost 
+\begin_inset Formula $[-a_{22},a_{21}]^{T}$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
