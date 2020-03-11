@@ -49,11 +49,6 @@ case -1
   legend('orig', 'fit', 'location', 'southeast');
   pic_output_png('A11diag_vs_A21diag_loglog');
 
-  figure(10089);
-  imagesc(log10(abs(A3)));
-  colorbar();
-  pic_output_png('Aei_log10');
-
   return
 
 case 1
@@ -148,6 +143,9 @@ case {2, 22}
     eigvalapp(2, k) = twob(1,1) - twob(2,1)*twob(1,2)/twob(2,2);
   end
 
+  A_skel = A;
+  [eigvec_skel, eigval_skel] = eig(A);
+
 %  % add random interconnection
 %  mnz = floor(n*n*0.02);  % number of non-zero
 %  idnz = 2*randi(n*n/2,mnz,1);
@@ -171,6 +169,11 @@ case {2, 22}
   A(idnz) = A(idnz) + scaled_rnds;
   A(idnz1) = A(idnz1) + scaled_rnds/8;
 
+  if id_case == 22
+    % diagonalize 2x2 blocks
+    A = eigvec_skel \ A * eigvec_skel;
+  end
+
 %  % random scale
 %  A(1:2:n-1, :) = 10.^(-3+2*rand(n/2,1)) .* A(1:2:n-1, :);
 end
@@ -178,27 +181,29 @@ end
 pic_output_png = @(st) print('-dpng', ...
                    sprintf('%s%s_c%d.png', pic_prefix, st, id_case));
 
-% show diag
-figure(32490); plot(1:n/2, A0(1:2*n+2:end), '-+', 1:n/2, A(1:2*n+2:end), '-o')
-xlabel('index of 2x2 matrix');
-ylabel('value');
-legend('original', 'hand fit', 'location', 'southeast');
-pic_output_png('a11diag');
-figure(32491); plot(1:n/2, A0(2:2*n+2:end), '-+', 1:n/2, A(2:2*n+2:end), '-o')
-xlabel('index of 2x2 matrix');
-ylabel('value');
-legend('original', 'hand fit', 'location', 'southeast');
-pic_output_png('a21diag');
-figure(32492); plot(1:n/2, A0(n+1:2*n+2:end), '-+', 1:n/2, A(n+1:2*n+2:end), '-o')
-xlabel('index of 2x2 matrix');
-ylabel('value');
-legend('original', 'hand fit', 'location', 'southeast');
-pic_output_png('a12diag');
-figure(32493); plot(1:n/2, A0(n+2:2*n+2:end), '-+', 1:n/2, A(n+2:2*n+2:end), '-o')
-xlabel('index of 2x2 matrix');
-ylabel('value');
-legend('original', 'hand fit', 'location', 'southeast');
-pic_output_png('a22diag');
+if id_case
+  % show diag
+  figure(32490); plot(1:n/2, A0(1:2*n+2:end), '-+', 1:n/2, A(1:2*n+2:end), '-o')
+  xlabel('index of 2x2 matrix');
+  ylabel('value');
+  legend('original', 'hand fit', 'location', 'southeast');
+  pic_output_png('a11diag');
+  figure(32491); plot(1:n/2, A0(2:2*n+2:end), '-+', 1:n/2, A(2:2*n+2:end), '-o')
+  xlabel('index of 2x2 matrix');
+  ylabel('value');
+  legend('original', 'hand fit', 'location', 'southeast');
+  pic_output_png('a21diag');
+  figure(32492); plot(1:n/2, A0(n+1:2*n+2:end), '-+', 1:n/2, A(n+1:2*n+2:end), '-o')
+  xlabel('index of 2x2 matrix');
+  ylabel('value');
+  legend('original', 'hand fit', 'location', 'southeast');
+  pic_output_png('a12diag');
+  figure(32493); plot(1:n/2, A0(n+2:2*n+2:end), '-+', 1:n/2, A(n+2:2*n+2:end), '-o')
+  xlabel('index of 2x2 matrix');
+  ylabel('value');
+  legend('original', 'hand fit', 'location', 'southeast');
+  pic_output_png('a22diag');
+end
 
 figure(10);
 imagesc(A);
@@ -214,6 +219,22 @@ title('Aei');
 caxis([-1, 1])
 colorbar();
 pic_output_png('Aei');
+
+figure(345);
+imagesc(log10(abs(Aei)));
+colorbar();
+caxis([-6, 1])
+pic_output_png('Aei_log10');
+
+%% verification
+%A615 = eigvec_skel \ A_skel * eigvec_skel;
+%A615ei = A615([1:2:n 2:2:n], [1:2:n 2:2:n]);
+%figure(346);
+%imagesc(log10(abs(A615)));
+%colorbar();
+%caxis([-6, 1])
+%%pic_output_png('Aei_log10');
+
 
 [eigvec eigval] = eig(A);
 eigval = diag(eigval);
