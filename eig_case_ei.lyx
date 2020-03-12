@@ -1816,8 +1816,252 @@ compare of eigenvalue approximation
 Perturbation analysis
 \end_layout
 
+\begin_layout Subsection
+Diagonalizing 2x2 blocks
+\end_layout
+
 \begin_layout Standard
-(not good) T.B.C.
+Let 
+\begin_inset Formula $Q$
+\end_inset
+
+ be the matrix that diagonalize the 2x2 blocks of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ Define
+\begin_inset Formula 
+\begin{equation}
+A^{(\mathrm{Q})}=Q^{-1}AQ
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+See Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-elem-2x2"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $A^{(\mathrm{Q})}$
+\end_inset
+
+ and 
+\begin_inset Formula $A$
+\end_inset
+
+ have exactly the same eigen values, so not shown here.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/A_c22.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix, 
+\begin_inset Formula $A^{(\mathrm{Q})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/Aei_log10_c22.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+EI re-ordered 
+\begin_inset Formula $A^{(\mathrm{Q})}$
+\end_inset
+
+, 
+\begin_inset Formula $A^{(\mathrm{Qei})}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename pic/eig-vec_c22.png
+	scale 30
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Matrix of eigenvectors 
+\begin_inset Formula $P^{(Q)}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-elem-2x2-vec"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $A^{(\mathrm{Q})}$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:A-elem-2x2"
+
+\end_inset
+
+, seed=32466345
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We see that 
+\begin_inset Formula $A^{(\mathrm{Qei})}$
+\end_inset
+
+ has a structure like that discussed in Appendix 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:appdix-diag"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, and that explained what we saw in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:A-elem-2x2-vec"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, hence explained observation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:ob-small-vec"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:ob-large-vec"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -2062,6 +2306,198 @@ So
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Subsection
+Eigen-decomposition of structured near diagonal matrix
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:appdix-diag"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+What is the eigen decomposition of
+\begin_inset Formula 
+\begin{equation}
+A=\begin{bmatrix}D & O\\
+C & G+B
+\end{bmatrix}
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $D$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ are diagonal matrix, 
+\begin_inset Formula $D=\mathrm{diag}(\left\{ d_{j}\right\} )$
+\end_inset
+
+, 
+\begin_inset Formula $B=\mathrm{diag}(\left\{ b_{j}\right\} )$
+\end_inset
+
+, 
+\begin_inset Formula $C$
+\end_inset
+
+ and 
+\begin_inset Formula $G$
+\end_inset
+
+ are small compared to 
+\begin_inset Formula $B$
+\end_inset
+
+ element wise or norm wise, 
+\begin_inset Formula $O$
+\end_inset
+
+ is zero matrix.
+\end_layout
+
+\begin_layout Standard
+Write down block wise eigen equation
+\begin_inset Formula 
+\begin{equation}
+A\begin{bmatrix}u\\
+v
+\end{bmatrix}=\begin{bmatrix}Du\\
+Cu+Gv+Bv
+\end{bmatrix}=\lambda\begin{bmatrix}u\\
+v
+\end{bmatrix}.
+\end{equation}
+
+\end_inset
+
+From
+\begin_inset Formula 
+\begin{equation}
+Du=\lambda u\label{eq:D-eig}
+\end{equation}
+
+\end_inset
+
+ we know
+\begin_inset Formula 
+\[
+\begin{cases}
+\lambda=d_{j} & \textrm{(case1)}\\
+u=0 & \lambda\neq d_{j}\ \forall j\textrm{ (case2)}
+\end{cases}
+\]
+
+\end_inset
+
+In (case1), we have 
+\begin_inset Formula $u=e_{j}$
+\end_inset
+
+ (Euclidean base), as it's the eigen decomposition of Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:D-eig"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ Then
+\begin_inset Formula 
+\[
+\left(G+B-\lambda I\right)v=-Ce_{j}
+\]
+
+\end_inset
+
+due to 
+\begin_inset Formula $B\gg G,B\gg\lambda$
+\end_inset
+
+, we have order estimation
+\begin_inset Formula 
+\[
+v=O(C/\left\Vert B\right\Vert ).
+\]
+
+\end_inset
+
+i.e.
+ 
+\begin_inset Formula $v\ll e_{j}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In (case2), we have 
+\begin_inset Formula $u=0$
+\end_inset
+
+, and
+\begin_inset Formula 
+\[
+\left(G+B\right)v=\lambda v
+\]
+
+\end_inset
+
+Assumed 
+\begin_inset Formula $B\gg G$
+\end_inset
+
+, then
+\begin_inset Formula 
+\[
+Bv\approx\lambda v
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\lambda\approx O(b_{j})
+\]
+
+\end_inset
+
+but we may not have 
+\begin_inset Formula $v\approx e_{j}$
+\end_inset
+
+, the perturbation 
+\begin_inset Formula $G$
+\end_inset
+
+ can greatly affect 
+\begin_inset Formula $v$
+\end_inset
+
+ when 
+\begin_inset Formula $b_{j}$
+\end_inset
+
+ are close.
+ In such case, 
+\begin_inset Formula $v$
+\end_inset
+
+ might looks random.
 \end_layout
 
 \end_body
